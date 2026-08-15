@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import User from '../models/userModel.js';
+import User from '../models/User.js';
 
 export const registerUserService = async ({name,email,password})=>{
     if(!name||!email||!password){
@@ -24,7 +24,7 @@ export const registerUserService = async ({name,email,password})=>{
 };
 
 export const loginUserService = async({email,password})=>{
-    if(!email||!passsword){
+    if(!email||!password){
         throw new Error("please fill all fields");
     }
 
@@ -41,14 +41,14 @@ export const loginUserService = async({email,password})=>{
         throw new Error("invalied email or password")
     }
 
-    const tocken = jwt.sign(
+    const token = jwt.sign(
         {
             id:user.id,
             email:user.email,
         },
         process.env.JWT_SECRET,
         {
-            expireIn:"1d"
+            expiresIn:"1d"
         }
     );
     return {
