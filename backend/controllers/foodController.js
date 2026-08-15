@@ -1,10 +1,19 @@
-import { scanFoodService } from "../services/foodService.js";
+import { analyzeFoodService } from "../services/foodService.js";
 
-export const scanFood = async (req, res) => {
+export const analyzeFood = async (req, res) => {
   try {
-    const result = await scanFoodService();
-
-    res.status(200).json(result);
+    if(!req.file){
+      return res.status(400).json({
+        success:false,
+        message:"please upload a food image",
+      });
+    }
+    const result = await analyzeFoodService(req.file);
+    res.status(200).json({
+      success: true,
+      message: "Food image analyzed successfully",
+      data: result,
+    });
   } catch (error) {
     res.status(500).json({
       success: false,

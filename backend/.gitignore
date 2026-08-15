@@ -1,3 +1,16 @@
-node_modules/
+# AI
+ai/venv/
+ai/dataset/
+ai/__pycache__/
+
+# Environment variables
 .env
-uploads/
+.env.*
+!.env.example
+
+# Node
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
