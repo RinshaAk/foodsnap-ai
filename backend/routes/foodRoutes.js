@@ -3,22 +3,12 @@ import multer from "multer";
 import path from "path";
 
 import { analyzeFood } from "../controllers/foodController.js";
+import { protect } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/");
-  },
-
-  filename: (req, file, cb) => {
-    const uniqueName = `${Date.now()}-${file.originalname}`;
-    cb(null, uniqueName);
-  },
-});
-
 const upload = multer({
-  storage,
+  storage: multer.memoryStorage(),
 
   limits: {
     fileSize: 5 * 1024 * 1024,
@@ -41,9 +31,23 @@ const upload = multer({
   },
 });
 
+const uploadFoodImage = (req, res, next) => {
+  upload.single("image")(req, res, (error) => {
+    if (error) {
+      return res.status(400).json({
+        success: false,
+        message: error.message,
+      });
+    }
+
+    return next();
+  });
+};
+
 router.post(
   "/analyze",
-  upload.single("image"),
+  protect,
+  uploadFoodImage,
   analyzeFood
 );
 

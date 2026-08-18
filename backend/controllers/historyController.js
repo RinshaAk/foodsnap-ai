@@ -6,7 +6,7 @@ import {
 
 export const getHistory = async(req,res)=>{
     try{
-        const History = await getHistoryService(req.user);
+        const History = await getHistoryService(req.user.id);
         res.status(200).json({
             success:true,
             message:"History fetched successfully",

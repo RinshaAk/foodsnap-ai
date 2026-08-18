@@ -17,6 +17,14 @@ const foodHistorySchema = new mongoose.Schema(
       required: true,
       default: 0,
     },
+    portionEstimate: {
+      type: String,
+      default: "",
+    },
+    estimatedGrams: {
+      type: Number,
+      default: 0,
+    },
     protein: {
       type: Number,
       default: 0,
@@ -33,6 +41,83 @@ const foodHistorySchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    confidence: {
+      type: Number,
+      default: 0,
+    },
+    nutritionSource: {
+      type: String,
+      default: "gemini_estimate",
+    },
+    items: [
+      {
+        foodName: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+        portionEstimate: {
+          type: String,
+          default: "",
+        },
+        estimatedGrams: {
+          type: Number,
+          default: 0,
+        },
+        calories: {
+          type: Number,
+          default: 0,
+        },
+        protein: {
+          type: Number,
+          default: 0,
+        },
+        carbohydrates: {
+          type: Number,
+          default: 0,
+        },
+        fat: {
+          type: Number,
+          default: 0,
+        },
+        confidence: {
+          type: Number,
+          default: 0,
+        },
+        nutritionReference: {
+          source: {
+            type: String,
+            default: "",
+          },
+          fdcId: {
+            type: Number,
+            default: null,
+          },
+          description: {
+            type: String,
+            default: "",
+          },
+          per100g: {
+            calories: {
+              type: Number,
+              default: 0,
+            },
+            protein: {
+              type: Number,
+              default: 0,
+            },
+            carbohydrates: {
+              type: Number,
+              default: 0,
+            },
+            fat: {
+              type: Number,
+              default: 0,
+            },
+          },
+        },
+      },
+    ],
   },
   {
     timestamps: true,

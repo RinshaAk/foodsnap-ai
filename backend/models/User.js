@@ -30,6 +30,24 @@ const userSchema = new mongoose.Schema(
       type: Number,
       default: 2000,
     },
+
+    role: {
+      type: String,
+      enum: ["user", "owner", "agency_owner", "agency_member"],
+      default: "user",
+    },
+
+    agencyRole: {
+      type: String,
+      enum: ["owner", "member", null],
+      default: null,
+    },
+
+    agency: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Agency",
+      default: null,
+    },
   },
   {
     timestamps: true,
